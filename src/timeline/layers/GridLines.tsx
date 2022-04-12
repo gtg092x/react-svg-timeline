@@ -7,6 +7,7 @@ import { range } from '../utils'
 import { useTimelineTheme } from '../theme/useTimelineTheme'
 import { XAxisTheme } from '../theme/model'
 import { CSSProperties } from 'react'
+import { G, Line, Rect, Text } from '../../svg/components'
 
 interface Props {
   height: number
@@ -75,9 +76,9 @@ const YearView = ({ height, domain, timeScale, showDecadesOnly = false }: YearVi
     const fontSize = xAxisTheme.yearLabelFontSize ? xAxisTheme.yearLabelFontSize : Math.max(width * 0.1, 14)
     const isDecade = year % 10 === 0
     return (
-      <g key={year}>
-        <line style={gridLineStyle} x1={x} y1={0} x2={x} y2={height} />
-        <text
+      <G key={year}>
+        <Line style={gridLineStyle} x1={x} y1={0} x2={x} y2={height} />
+        <Text
           style={textStyle}
           x={xMidYear}
           y="90%"
@@ -85,12 +86,12 @@ const YearView = ({ height, domain, timeScale, showDecadesOnly = false }: YearVi
           writingMode={showDecadesOnly ? 'vertical-lr' : 'horizontal-tb'}
         >
           {showDecadesOnly ? (isDecade ? year : '') : year}
-        </text>
-      </g>
+        </Text>
+      </G>
     )
   })
 
-  return <g>{lines}</g>
+  return <G>{lines}</G>
 }
 
 /* ·················································································································· */
@@ -146,21 +147,21 @@ const MonthView = ({ height, domain, timeScale, showWeekStripes = false }: Month
     const xLast = timeScale(addMonths(monthTimestamp, 1))!
     const isLast = index === monthNumbers.length - 1
     return (
-      <g key={rawMonth}>
+      <G key={rawMonth}>
         {showWeekStripes && <WeekStripes monthStart={monthTimestamp} timeScale={timeScale} />}
         <MonthLine x={x} month={month} />
-        <text style={textStyle} x={xMidMonth} y={height - 1.5 * monthViewLabelFontSize}>
+        <Text style={textStyle} x={xMidMonth} y={height - 1.5 * monthViewLabelFontSize}>
           {monthName}
-        </text>
-        <text style={textStyle} x={xMidMonth} y={height - 0.5 * monthViewLabelFontSize}>
+        </Text>
+        <Text style={textStyle} x={xMidMonth} y={height - 0.5 * monthViewLabelFontSize}>
           {year}
-        </text>
+        </Text>
         {isLast && <MonthLine x={xLast} month={month} />}
-      </g>
+      </G>
     )
   })
 
-  return <g>{lines}</g>
+  return <G>{lines}</G>
 }
 
 interface MonthLineProps {
@@ -171,7 +172,7 @@ interface MonthLineProps {
 const MonthLine = ({ x, month }: MonthLineProps) => {
   const style = useGridLineStyle()
   return (
-    <line
+    <Line
       style={style}
       x1={x}
       y1={0}
@@ -204,11 +205,11 @@ const WeekStripes = ({ monthStart, timeScale }: WeekStripesProps) => {
       const weekSinceEpoch = Math.floor(weekStart.valueOf() / weekDuration)
       const fill = weekSinceEpoch % 2 === 0 ? theme.weekStripesColor : 'transparent'
       const opacity = theme.weekStripesOpacity
-      return <rect key={key} fill={fill} opacity={opacity} x={x} y={0} width={width} height="100%" />
+      return <Rect key={key} fill={fill} opacity={opacity} x={x} y={0} width={width} height="100%" />
     } else {
-      return <g key={key} />
+      return <G key={key} />
     }
   })
 
-  return <g>{lines}</g>
+  return <G>{lines}</G>
 }

@@ -3,8 +3,11 @@ class TextSize {
   private canvasContext: CanvasRenderingContext2D | null
 
   constructor() {
-    this.canvas = document.createElement('canvas')
-    this.canvasContext = this.canvas.getContext('2d')
+    if (typeof document !== 'undefined') {
+      // @ts-ignore
+      this.canvas = document.createElement('canvas')
+      this.canvasContext = this.canvas.getContext('2d')
+    }
   }
 
   /**

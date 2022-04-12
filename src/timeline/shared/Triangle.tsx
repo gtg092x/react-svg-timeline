@@ -1,4 +1,5 @@
 import React from 'react'
+import { Path, Svg } from '../../svg/components'
 
 export enum TriangleDirection {
   Up,
@@ -34,9 +35,9 @@ function Triangle({ style, x, y, dimension, direction }: TriangeProps) {
   }
 
   return (
-    <svg x={x - dimension / 2} y={y - dimension / 2} viewBox={`0 0 10 10`} width={dimension} height={dimension}>
-      <path style={style} d={trianglePath} />
-    </svg>
+    <Svg x={x - dimension / 2} y={y - dimension / 2} viewBox={`0 0 10 10`} width={dimension} height={dimension}>
+      <Path style={style} d={trianglePath} />
+    </Svg>
   )
 }
 

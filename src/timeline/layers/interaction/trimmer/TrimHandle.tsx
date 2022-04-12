@@ -1,6 +1,7 @@
 import React, { CSSProperties } from 'react'
 import { CursorLabel } from '../CursorLabel'
 import { useTimelineTheme } from '../../../theme/useTimelineTheme'
+import { Line } from '../../../../svg/components'
 
 const useTrimHandleStyle = (): CSSProperties => {
   const theme = useTimelineTheme().trimmer
@@ -24,7 +25,7 @@ function TrimHandle({ x, label, dateString, height, onMouseEnter, onMouseLeave }
   const lineStyle = useTrimHandleStyle()
   return (
     <>
-      <line
+      <Line
         style={lineStyle}
         pointerEvents={'visibleStroke'}
         x1={x}
@@ -42,7 +43,7 @@ function TrimHandle({ x, label, dateString, height, onMouseEnter, onMouseLeave }
         label={dateString}
         fill={trimmerTheme.trimHandleLabelColor}
       />
-      <line
+      <Line
         style={lineStyle}
         x1={x}
         y1="23%"

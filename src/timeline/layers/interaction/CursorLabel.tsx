@@ -1,5 +1,6 @@
 import React, { CSSProperties } from 'react'
 import { useTimelineTheme } from '../../theme/useTimelineTheme'
+import { Text, TSpan } from '../../../svg/components'
 
 const useTextStyle = (fill?: string): CSSProperties => {
   const theme = useTimelineTheme()
@@ -24,13 +25,13 @@ interface Props {
 export const CursorLabel = ({ x, y, overline, label, cursor, fill }: Props) => {
   const style = useTextStyle(fill)
   return (
-    <text style={style} x={x} y={y} cursor={cursor}>
-      <tspan x={x} cursor={cursor}>
+    <Text style={style} x={x} y={y} cursor={cursor}>
+      <TSpan x={x} cursor={cursor}>
         {overline}
-      </tspan>
-      <tspan x={x} dy={18} cursor={cursor}>
+      </TSpan>
+      <TSpan x={x} dy={18} cursor={cursor}>
         {label}
-      </tspan>
-    </text>
+      </TSpan>
+    </Text>
   )
 }

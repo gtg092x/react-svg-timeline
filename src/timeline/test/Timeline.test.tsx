@@ -8,6 +8,7 @@ import data from './data.json'
 import { Timeline } from '../Timeline'
 import { THEME } from './testTheme'
 import { calcMaxDomain } from '../hooks/useTimeline'
+import { G } from '../../svg/components'
 
 describe('Timeline', () => {
   const events = data.events
@@ -34,7 +35,7 @@ describe('Timeline', () => {
         events={events}
         lanes={lanes}
         dateFormat={dateFormat}
-        layers={['axes', 'grid', ({ height }) => <g>Test Layer {height}</g>]}
+        layers={['axes', 'grid', ({ height }) => <G>Test Layer {height}</G>]}
       />
     )
 

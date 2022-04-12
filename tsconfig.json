@@ -1,26 +1,22 @@
 {
-  "include": ["src"],
+  "version": "2.4.2",
   "compilerOptions": {
-    "target": "es6",
-    "module": "esnext",
-    "lib": ["dom", "esnext"],
-    "importHelpers": true,
-    "declaration": true,
-    "sourceMap": true,
-    "rootDir": "src",
-    "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictPropertyInitialization": true,
-    "noImplicitThis": true,
-    "alwaysStrict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
+    "lib": ["es2017", "dom", "dom.iterable", "esnext", "esnext.asynciterable"],
+    "allowJs": true,
+    "module": "commonjs",
     "moduleResolution": "node",
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
     "jsx": "react",
-    "esModuleInterop": true
-  }
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "importHelpers": true,
+    "noEmit": false,
+    "incremental": true,
+    "sourceMap": true,
+    "target": "es2017"
+  },
+  "exclude": ["node_modules"]
 }

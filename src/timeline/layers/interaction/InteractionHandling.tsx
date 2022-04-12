@@ -13,6 +13,7 @@ import {
   TrimHover,
   TrimNone,
 } from './model'
+import { Defs, G, Rect, ClipPath } from '../../../svg/components'
 
 export interface InteractionHandlingProps {
   width: number
@@ -238,12 +239,12 @@ export const InteractionHandling = ({
 
   return (
     <>
-      <defs>
-        <clipPath id="clipPath">
-          <rect x="0" y="0" width={width} height={height} />
-        </clipPath>
-      </defs>
-      <g
+      <Defs>
+        <ClipPath id="clipPath">
+          <Rect x="0" y="0" width={width} height={height} />
+        </ClipPath>
+      </Defs>
+      <G
         clipPath="url(#clipPath)"
         pointerEvents={'bounding-box'}
         cursor={cursor}
@@ -254,7 +255,7 @@ export const InteractionHandling = ({
         onMouseLeave={onMouseLeave}
       >
         {children(cursor, interactionMode, setTrimHoverMode)}
-      </g>
+      </G>
     </>
   )
 }

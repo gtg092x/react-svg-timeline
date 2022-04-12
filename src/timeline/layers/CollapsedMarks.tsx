@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Marks } from './Marks'
 import { ScaleLinear } from 'd3-scale'
 import { EventComponentFactory, TimelineEvent } from '../model'
+import { G } from '../../svg/components'
 
 interface Props<EID extends string, LID extends string, E extends TimelineEvent<EID, LID>> {
   height: number
@@ -26,7 +27,7 @@ export const CollapsedMarks = <EID extends string, LID extends string, E extends
   const y = height / 2
 
   return (
-    <g>
+    <G>
       <Marks
         height={height}
         events={events}
@@ -37,6 +38,6 @@ export const CollapsedMarks = <EID extends string, LID extends string, E extends
         onEventUnhover={onEventUnhover}
         onEventClick={onEventClick}
       />
-    </g>
+    </G>
   )
 }

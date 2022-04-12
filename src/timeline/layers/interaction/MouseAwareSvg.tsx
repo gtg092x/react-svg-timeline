@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { useRef, useState } from 'react'
+import { Rect, Svg } from '../../../svg/components'
 
 interface Props {
   width: number
@@ -38,7 +39,7 @@ export const MouseAwareSvg = ({ width, height, children }: Props) => {
   const resetMousePosition = () => setMousePosition(mousePositionNone)
 
   return (
-    <svg
+    <Svg
       viewBox={`0 0 ${width} ${height}`}
       width={width}
       height={height}
@@ -48,8 +49,8 @@ export const MouseAwareSvg = ({ width, height, children }: Props) => {
       onMouseMove={updateMousePosition}
       onMouseLeave={resetMousePosition}
     >
-      <rect width={width} height={height} pointerEvents="all" fill="transparent"></rect>
+      <Rect width={width} height={height} pointerEvents="all" fill="transparent"></Rect>
       {children(mousePosition)}
-    </svg>
+    </Svg>
   )
 }

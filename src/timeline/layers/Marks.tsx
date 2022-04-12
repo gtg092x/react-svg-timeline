@@ -5,6 +5,7 @@ import { ScaleLinear } from 'd3-scale'
 import { EventComponentFactory, EventComponentRole, TimelineEvent } from '../model'
 import { EventTooltip } from '../tooltip/EventTooltip'
 import { useTimelineTheme } from '../theme/useTimelineTheme'
+import { Circle, G, Rect } from '../../svg/components'
 
 const useEventBackgroundStyle = () => {
   const theme = useTimelineTheme().base
@@ -141,11 +142,11 @@ export const Marks = <EID extends string, LID extends string, E extends Timeline
   )
 
   return (
-    <g>
+    <G>
       {backgroundMarks}
       {foregroundMarks}
       {selectionOrPinMarks}
-    </g>
+    </G>
   )
 }
 
@@ -181,20 +182,20 @@ const InteractiveEventMark = <EID extends string, LID extends string, E extends 
   const triggerRef = useRef<SVGGElement>(null)
 
   return (
-    <g
+    <G
       pointerEvents={'bounding-box'}
       cursor={'default'}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onClick={onMouseClick}
     >
-      <g ref={triggerRef}>{children}</g>
+      <G ref={triggerRef}>{children}</G>
       {event.tooltip ? (
         <EventTooltip type={tooltipType} y={y} parentWidth={parentWidth} triggerRef={triggerRef} text={event.tooltip} />
       ) : (
-        <g />
+        <G />
       )}
-    </g>
+    </G>
   )
 }
 
@@ -217,7 +218,7 @@ const DefaultEventMark = <EID extends string, LID extends string, E extends Time
   const pinnedStrokeStyle = e.isPinned ? { stroke: theme.event.markPinnedLineColor } : {}
   if (e.endTimeMillis === undefined) {
     return (
-      <circle
+      <Circle
         style={{ ...style, ...pinnedStrokeStyle }}
         cx={startX}
         cy={y}
@@ -229,7 +230,7 @@ const DefaultEventMark = <EID extends string, LID extends string, E extends Time
     const endX = timeScale(e.endTimeMillis)!
     const width = endX - startX
     return (
-      <rect
+      <Rect
         style={{ ...style, ...pinnedStrokeStyle }}
         x={startX}
         y={y - eventMarkHeight / 2}

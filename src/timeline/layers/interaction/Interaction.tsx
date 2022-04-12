@@ -10,6 +10,7 @@ import { InteractionHandling } from './InteractionHandling'
 import { useTrimming } from './trimmer/useTrimming'
 import { TrimRange } from './trimmer/TrimRange'
 import { Trimmer } from './trimmer/Trimmer'
+import { G } from '../../../svg/components'
 
 export interface InteractionProps {
   width: number
@@ -124,7 +125,7 @@ export const Interaction = ({
           >
             {(cursor, interactionMode, setTrimHoverMode) => {
               return (
-                <g>
+                <G>
                   {isNoEventSelected && interactionMode.type !== 'trim' ? (
                     <MouseCursor
                       mousePosition={mousePosition.x}
@@ -137,7 +138,7 @@ export const Interaction = ({
                       isZoomInPossible={isZoomInPossible}
                     />
                   ) : (
-                    <g />
+                    <G />
                   )}
                   {trimRange && (
                     <TrimRange
@@ -159,7 +160,7 @@ export const Interaction = ({
                       highlightActiveArea={interactionMode.variant === 'trim pan end'}
                     />
                   )}
-                </g>
+                </G>
               )
             }}
           </InteractionHandling>

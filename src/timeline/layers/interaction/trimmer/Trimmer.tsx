@@ -4,6 +4,7 @@ import TrimHandle from './TrimHandle'
 import Triangle, { TriangleDirection } from '../../../shared/Triangle'
 import { useTimelineTheme } from '../../../theme/useTimelineTheme'
 import { TrimHover, TrimNone } from '../model'
+import { G, Rect } from '../../../../svg/components'
 
 const useAreaStyle = (): CSSProperties => {
   const theme = useTimelineTheme().trimmer
@@ -57,8 +58,8 @@ export function Trimmer({
   const [scaledStartX, scaledEndX] = [timeScale(startX)!, timeScale(endX)!]
 
   return (
-    <g>
-      <rect
+    <G>
+      <Rect
         style={highlightActiveArea ? areaHighlightStyle : areaStyle}
         x={Math.min(scaledStartX, scaledEndX)}
         y={y1}
@@ -95,6 +96,6 @@ export function Trimmer({
           direction={TriangleDirection.Right}
         />
       )}
-    </g>
+    </G>
   )
 }

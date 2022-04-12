@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Marks } from './Marks'
 import { ScaleBand, ScaleLinear } from 'd3-scale'
 import { EventComponentFactory, TimelineEvent, TimelineLane } from '../model'
+import { G } from '../../svg/components'
 
 interface Props<EID extends string, LID extends string, E extends TimelineEvent<EID, LID>> {
   height: number
@@ -30,7 +31,7 @@ export const ExpandedMarks = <EID extends string, LID extends string, E extends 
   const marks = lanes.map((lane: TimelineLane<LID>) => {
     const laneSpecificEvents = events.filter((e) => e.laneId === lane.laneId)
     return (
-      <g key={`marks-${lane.laneId}`}>
+      <G key={`marks-${lane.laneId}`}>
         <Marks
           height={height}
           events={laneSpecificEvents}
@@ -41,9 +42,9 @@ export const ExpandedMarks = <EID extends string, LID extends string, E extends 
           onEventUnhover={onEventUnhover}
           onEventClick={onEventClick}
         />
-      </g>
+      </G>
     )
   })
 
-  return <g>{marks}</g>
+  return <G>{marks}</G>
 }

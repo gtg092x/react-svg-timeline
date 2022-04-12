@@ -3,6 +3,7 @@ import { ScaleBand } from 'd3-scale'
 import { TimelineLane } from '../model'
 import { Axis } from './Axis'
 import { useTimelineTheme } from '../theme/useTimelineTheme'
+import { G, Text } from '../../svg/components'
 
 export interface AxesProps<LID extends string> {
   lanes: ReadonlyArray<TimelineLane<LID>>
@@ -20,9 +21,9 @@ export const Axes = <LID extends string>({ lanes, yScale }: AxesProps<LID>) => {
         const labelYOffset = -0.5 * yScale.bandwidth()
         const y = yScale(lane.laneId)!
         return (
-          <g key={`axis-${lane.laneId}`}>
+          <G key={`axis-${lane.laneId}`}>
             <Axis y={y} />
-            <text
+            <Text
               style={{
                 fontSize: theme.lane.labelFontSize,
                 fontFamily: theme.base.fontFamily,
@@ -35,8 +36,8 @@ export const Axes = <LID extends string>({ lanes, yScale }: AxesProps<LID>) => {
               fill={lane.color || theme.lane.labelColor}
             >
               {lane.label}
-            </text>
-          </g>
+            </Text>
+          </G>
         )
       })}
     </>

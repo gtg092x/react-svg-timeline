@@ -19,6 +19,7 @@ import { EventClusters } from './layers/EventClusters'
 import { Axes } from './layers/Axes'
 import { Axis } from './layers/Axis'
 import { defaultOrderedZoomLevels, ZoomLevels } from './shared/ZoomScale'
+import { G, Svg } from '../svg/components'
 
 export interface TimelineProps<EID extends string, LID extends string, E extends TimelineEvent<EID, LID>> {
   width: number
@@ -154,7 +155,7 @@ export const Timeline = <EID extends string, LID extends string, E extends Timel
         />
       ),
       marks: showMarks && (
-        <g key="marks">
+        <G key="marks">
           <EventClusters
             height={height}
             eventClusters={eventClustersInsideDomain}
@@ -185,13 +186,13 @@ export const Timeline = <EID extends string, LID extends string, E extends Timel
               onEventClick={onEventClick}
             />
           )}
-        </g>
+        </G>
       ),
     }
 
     return (
       <TimelineThemeProvider theme={theme}>
-        <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
+        <Svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
           {layers.map((layer, i) => {
             if (typeof layer !== 'function') {
               return layerById[layer]
@@ -218,7 +219,7 @@ export const Timeline = <EID extends string, LID extends string, E extends Timel
               </Fragment>
             )
           })}
-        </svg>
+        </Svg>
       </TimelineThemeProvider>
     )
   }

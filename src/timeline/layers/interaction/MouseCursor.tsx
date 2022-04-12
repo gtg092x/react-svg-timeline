@@ -4,6 +4,7 @@ import { Cursor } from '../../model'
 import { CursorLabel } from './CursorLabel'
 import { useTimelineTheme } from '../../theme/useTimelineTheme'
 import { InteractionMode } from './model'
+import { G, Line, Rect } from '../../../svg/components'
 
 const useCursorStyle = () => {
   const theme = useTimelineTheme().mouseCursor
@@ -43,12 +44,12 @@ export const MouseCursor = ({
   isZoomInPossible,
 }: Props) => {
   if (isNaN(mousePosition)) {
-    return <g />
+    return <G />
   } else {
     const cursorComponent = () => {
       switch (interactionMode.type) {
         case 'animation in progress': {
-          return <g />
+          return <G />
         }
         case 'panning':
           return <PanningCursor mousePosition={mousePosition} />
@@ -75,11 +76,11 @@ export const MouseCursor = ({
     }
 
     return (
-      <g>
+      <G>
         {/* covering complete area prevents flickering cursor and asserts that mouse events are caught */}
-        <rect x={0} y={0} width={'100%'} height={'100%'} fill={'transparent'} />
+        <Rect x={0} y={0} width={'100%'} height={'100%'} fill={'transparent'} />
         {cursorComponent()}
-      </g>
+      </G>
     )
   }
 }
@@ -111,8 +112,8 @@ const ZoomCursor = ({
   const cursorStyle = useCursorStyle()
   const zoomRangeStyle = useZoomRangeStyle()
   return (
-    <g>
-      <rect
+    <G>
+      <Rect
         visibility={isZoomInPossible ? 'visible' : 'hidden'}
         style={zoomRangeStyle}
         x={zoomRangeStart}
@@ -121,7 +122,7 @@ const ZoomCursor = ({
         height="100%"
         cursor={cursor}
       />
-      <line style={cursorStyle} x1={mousePosition} y1="0%" x2={mousePosition} y2="5%" cursor={cursor} />
+      <Line style={cursorStyle} x1={mousePosition} y1="0%" x2={mousePosition} y2="5%" cursor={cursor} />
       <CursorLabel
         x={mousePosition}
         y={isZoomInPossible ? '11%' : '15%'}
@@ -129,8 +130,8 @@ const ZoomCursor = ({
         overline={cursorLabel}
         label={isZoomInPossible ? zoomScale : ''}
       />
-      <line style={cursorStyle} x1={mousePosition} y1="23%" x2={mousePosition} y2="100%" cursor={cursor} />
-    </g>
+      <Line style={cursorStyle} x1={mousePosition} y1="23%" x2={mousePosition} y2="100%" cursor={cursor} />
+    </G>
   )
 }
 
@@ -146,9 +147,9 @@ interface PanningProps {
 const PanningCursor = ({ mousePosition }: PanningProps) => {
   const cursorStyle = useCursorStyle()
   return (
-    <g>
-      <line style={cursorStyle} x1={mousePosition} y1={'0%'} x2={mousePosition} y2={'100%'} cursor={'grab'} />
-    </g>
+    <G>
+      <Line style={cursorStyle} x1={mousePosition} y1={'0%'} x2={mousePosition} y2={'100%'} cursor={'grab'} />
+    </G>
   )
 }
 
@@ -168,14 +169,14 @@ const RubberBandCursor = ({ start, end }: RubberBandProps) => {
 
   const [y1, y2] = ['0%', '100%']
   return (
-    <g>
-      <line style={cursorStyle} x1={start} y1={y1} x2={start} y2={y2} />
+    <G>
+      <Line style={cursorStyle} x1={start} y1={y1} x2={start} y2={y2} />
       {end && (
-        <g>
-          <line style={cursorStyle} x1={end} y1={y1} x2={end} y2={y2} />
-          <rect style={zoomRangeStyle} x={Math.min(start, end)} y={y1} width={Math.abs(end - start)} height={y2} />
-        </g>
+        <G>
+          <Line style={cursorStyle} x1={end} y1={y1} x2={end} y2={y2} />
+          <Rect style={zoomRangeStyle} x={Math.min(start, end)} y={y1} width={Math.abs(end - start)} height={y2} />
+        </G>
       )}
-    </g>
+    </G>
   )
 }

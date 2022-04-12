@@ -3,6 +3,7 @@ import { ScaleBand, ScaleLinear, scaleSqrt } from 'd3-scale'
 import { TimelineEventCluster } from '../model'
 import { extent } from 'd3-array'
 import { useTimelineTheme } from '../theme/useTimelineTheme'
+import { Circle, G } from '../../svg/components'
 
 const useCircleStyle = () => {
   const theme = useTimelineTheme()
@@ -43,18 +44,18 @@ export const EventClusters = <LID extends string>({
     .range([clusterRadiusMin, clusterRadiusMax])
 
   return (
-    <g>
+    <G>
       {eventClusters.map((eventCluster) => (
-        <g key={`eventCluster-${eventCluster.laneId}-${eventCluster.timeMillis}`}>
-          <circle
+        <G key={`eventCluster-${eventCluster.laneId}-${eventCluster.timeMillis}`}>
+          <Circle
             style={circleStyle}
             cx={timeScale(eventCluster.timeMillis)}
             cy={expanded ? yScale(eventCluster.laneId) : height / 2}
             r={clusterScale(eventCluster.size)!}
             fill={eventCluster.color || theme.event.clusterFillColor}
           />
-        </g>
+        </G>
       ))}
-    </g>
+    </G>
   )
 }

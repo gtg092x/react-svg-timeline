@@ -4,6 +4,7 @@ import { Tooltip } from 'react-svg-tooltip'
 import { scaleLinear } from 'd3-scale'
 import { CSSProperties } from 'react'
 import { useTimelineTheme } from '../theme/useTimelineTheme'
+import { G, Path, Rect, Svg, Text, TSpan } from '../../svg/components'
 
 const useTooltipRootSvgStyle = (): CSSProperties => ({
   textAlign: 'left',
@@ -67,18 +68,18 @@ export const EventTooltip = ({ type, y, parentWidth, text, triggerRef }: Props) 
         const svgY = tooltipY - arrowDimension / 2
 
         return (
-          <g>
-            <svg style={tooltipRootSvgStyle} x={svgX} y={svgY} width={tooltipWidth} height={tooltipHeight}>
-              <rect style={tooltipBackgroundStyle} width="100%" height="100%" rx={3} ry={3} />
+          <G>
+            <Svg style={tooltipRootSvgStyle} x={svgX} y={svgY} width={tooltipWidth} height={tooltipHeight}>
+              <Rect style={tooltipBackgroundStyle} width="100%" height="100%" rx={3} ry={3} />
               <TooltipText
                 style={tooltipTextStyle}
                 textLines={textLines}
                 tooltipHeight={tooltipHeight}
                 tooltipWidth={tooltipWidth}
               />
-            </svg>
+            </Svg>
             <ArrowDown style={tooltipBackgroundStyle} tipX={tooltipX} baseY={baseY} dimension={arrowDimension} />)
-          </g>
+          </G>
         )
       }}
     </Tooltip>
@@ -94,15 +95,15 @@ interface ArrowDownProps {
 
 const ArrowDown = ({ tipX, baseY, dimension, style }: ArrowDownProps) => {
   return (
-    <svg
+    <Svg
       x={tipX - dimension / 2}
       y={baseY + dimension / 2 + 5} // the triangle is only of height 5
       viewBox={`0 0 10 10`} // path is expressed for a 10x10 square
       width={dimension}
       height={dimension}
     >
-      <path style={style} d={`M0 2.5 l 5 5 5-5z`} />
-    </svg>
+      <Path style={style} d={`M0 2.5 l 5 5 5-5z`} />
+    </Svg>
   )
 }
 
@@ -151,14 +152,14 @@ interface TooltipTextProps {
 
 const TooltipText = ({ textLines, style, tooltipWidth, tooltipHeight }: TooltipTextProps) => {
   return (
-    <text style={style} width={tooltipWidth} height={tooltipHeight}>
+    <Text style={style} width={tooltipWidth} height={tooltipHeight}>
       {textLines.map((textLine, index) => {
         return (
-          <tspan dy="1.2em" x="10" key={index} textAnchor="start">
+          <TSpan dy="1.2em" x="10" key={index} textAnchor="start">
             {textLine}
-          </tspan>
+          </TSpan>
         )
       })}
-    </text>
+    </Text>
   )
 }
